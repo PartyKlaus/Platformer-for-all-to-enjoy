@@ -5,14 +5,20 @@ using System.Text;
 
 namespace Game5
 {
+    /*
     public class Character : AnimatedGameObject
     {
 
-
+        
         private string name;
         private const float moveSpeed = 100;
         private double shootRate = 0;
         private int Health;
+
+        public Character()
+        {
+
+        }
 
         public int TotalHealth
         {
@@ -31,5 +37,7 @@ namespace Game5
         {
             throw new System.NotImplementedException();
         }
+        
     }
+    */
 }

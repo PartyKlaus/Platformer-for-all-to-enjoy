@@ -1,35 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Game5.Enemy">
-    <Position X="1" Y="7.5" Width="1.5" />
-    <InheritanceLine Type="Game5.Character" ManuallyRouted="true">
-      <Path>
-        <Point X="1.5" Y="6.655" />
-        <Point X="1.5" Y="6.773" />
-        <Point X="1.75" Y="6.773" />
-        <Point X="1.75" Y="7.5" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Enemy.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Game5.BigBaller">
-    <Position X="3.5" Y="7.5" Width="1.5" />
-    <InheritanceLine Type="Game5.Character" ManuallyRouted="true" FixedToPoint="true">
-      <Path>
-        <Point X="1.5" Y="6.655" />
-        <Point X="1.5" Y="6.797" />
-        <Point X="4.312" Y="6.797" />
-        <Point X="4.312" Y="7.5" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>BigBaller.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Game5.Obstacle">
     <Position X="5.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
@@ -51,32 +21,10 @@
       <FileName>Door.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Game5.Highscore">
-    <Position X="12" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Highscore.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Game5.Character">
-    <Position X="0.75" Y="3.75" Width="1.5" />
-    <InheritanceLine Type="Game5.AnimatedGameObject" ManuallyRouted="true">
-      <Path>
-        <Point X="3" Y="3.146" />
-        <Point X="3" Y="3.344" />
-        <Point X="1.5" Y="3.344" />
-        <Point X="1.5" Y="3.75" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAAACAAEEAAAAACAAAAAAAAAAAAEAAAAAAAAAgAQAAA=</HashCode>
-      <FileName>Character.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Game5.GameObject">
     <Position X="4.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQCAAAAAAAAAgAgAAAAIAAAAhAAAAAAAAAAAAIAAQA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameObject.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -88,28 +36,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Game5.StartScreen">
-    <Position X="13" Y="5" Width="1.5" />
+    <Position X="10.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>StartScreen.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Game5.Save">
-    <Position X="11.25" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Save.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Game5.Load">
-    <Position X="11.25" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Load.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Game5.Menu">
-    <Position X="13" Y="6" Width="1.5" />
+    <Position X="12.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Menu.cs</FileName>
@@ -127,6 +61,20 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Key.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game5.MenuManager">
+    <Position X="11.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAggIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>MenuManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game5.ScreenManager">
+    <Position X="14" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ScreenManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

@@ -5,7 +5,9 @@ using System.Text;
 
 namespace Game5
 {
+    /*
     public class Enemy : Character
     {
     }
+    */
 }

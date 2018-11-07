@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Game5
 {
-    public class StartScreen
+    public class StartScreen : MenuManager
     {
     }
 }

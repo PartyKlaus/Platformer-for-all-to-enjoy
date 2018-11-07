@@ -8,9 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game5
 {
+    
     public class GameObject
     {
-
+        /*
         protected Texture2D sprite;
         protected Vector2 position;
         public Vector2 Position { get => position; }
@@ -23,7 +24,7 @@ namespace Game5
             
             get
             {
-
+                
             }
         }
 
@@ -57,6 +58,7 @@ namespace Game5
         {
 
         }
+        */
 
     }
 }

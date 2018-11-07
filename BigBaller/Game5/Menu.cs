@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Game5
 {
-    public class Menu
+    public class Menu : MenuManager
     {
     }
 }

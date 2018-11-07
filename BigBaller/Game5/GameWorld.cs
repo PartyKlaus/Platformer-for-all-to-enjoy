@@ -1,6 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Media;
+using System;
+using System.Threading;
+
 
 namespace Game5
 {
@@ -9,6 +15,16 @@ namespace Game5
     /// </summary>
     public class GameWorld : Game
     {
+        //Background texture/image
+        Texture2D backGround;
+        
+        //Creates a rectangle to define the limits of our game screen
+        Rectangle mainFrame;
+
+        private List<GameObject> gameObjects = new List<GameObject>();
+        private static List<GameObject> Add = new List<GameObject>();
+        private static List<GameObject> Remove = new List<GameObject>();
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -40,7 +56,10 @@ namespace Game5
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            backGround = Content.Load<Texture2D>("background\\NighBg");
+
+            mainFrame = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+
         }
 
         /// <summary>
@@ -73,10 +92,11 @@ namespace Game5
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
+            spriteBatch.Draw(backGround, mainFrame, Color.White);
+            spriteBatch.End();
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
             base.Draw(gameTime);
         }
     }

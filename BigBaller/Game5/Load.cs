@@ -5,7 +5,4 @@ using System.Text;
 
 namespace Game5
 {
-    public class Load
-    {
-    }
 }
