@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Oliver/Documents/BigBaller/Game5/Content/Background/NighBg.png</SourceFile>
-  <SourceTime>2018-11-07T16:40:35+01:00</SourceTime>
-  <DestFile>C:/Users/Oliver/Documents/BigBaller/Game5/Content/bin/Windows/Content/Background/NighBg.xnb</DestFile>
-  <DestTime>2018-11-07T18:33:25.2559757+01:00</DestTime>
+  <SourceFile>C:/Users/Oliver/Documents/BigBaller/Game5/Content/Characters/Jonah.PNG</SourceFile>
+  <SourceTime>2018-11-07T19:42:32.659979+01:00</SourceTime>
+  <DestFile>C:/Users/Oliver/Documents/BigBaller/Game5/Content/bin/Windows/Content/Characters/Jonah.xnb</DestFile>
+  <DestTime>2018-11-07T21:14:26.2824166+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-09-23T23:55:52+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
