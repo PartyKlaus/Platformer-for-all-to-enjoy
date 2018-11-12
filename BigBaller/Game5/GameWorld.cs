@@ -21,14 +21,15 @@ namespace Game5
         //Creates a rectangle to define the limits of our game screen
         Rectangle mainFrame;
 
+        private Texture2D collisionTexture;
 
-        private GameObject _jonah;
-
-        Vector2 startPosition;
+        private BigBaller bigBaller;
 
         private List<GameObject> gameObjects = new List<GameObject>();
         private static List<GameObject> Add = new List<GameObject>();
         private static List<GameObject> Remove = new List<GameObject>();
+        
+
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -62,19 +63,16 @@ namespace Game5
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            collisionTexture = Content.Load<Texture2D>("CollisionTexture/CollisionTexture");
+
             backGround = Content.Load<Texture2D>("Background\\NighBg");
 
             mainFrame = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
-            
-            //instantiere et nyt GameObject
-            _jonah = new GameObject(startPosition, Content, "Characters/cat_idle");
+           
+            bigBaller = new BigBaller(Content);
+            gameObjects.Add(bigBaller);
 
-            //Opretter objektets startværdi på XY-akserne
-            _jonah.Position = new Vector2(100, 200);
-
-            //tilføjer det nye gameObject _jonah til gameObjects listen 
-            gameObjects.Add(_jonah);
         }
 
         /// <summary>
@@ -96,10 +94,10 @@ namespace Game5
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //kalder Update metoden fra GameObject klassen
-            _jonah.Update();
-
-            // TODO: Add your update logic here
+            foreach (GameObject go in gameObjects)
+            {
+                go.Update(gameTime);
+            }
 
             base.Update(gameTime);
         }
@@ -114,11 +112,31 @@ namespace Game5
             spriteBatch.Begin();
             spriteBatch.Draw(backGround, mainFrame, Color.White);
 
-            //kalder Draw metoden fra gameObject klassen
-            _jonah.Draw(spriteBatch);
+
+            foreach (GameObject go in gameObjects)
+            {
+                go.Draw(spriteBatch);
+#if DEBUG
+                DrawCollisionBox(go);
+#endif
+            }
 
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        private void DrawCollisionBox(GameObject go)
+        {
+            Rectangle collisionBox = go.CollisionBox;
+            Rectangle topLine = new Rectangle(collisionBox.X, collisionBox.Y, collisionBox.Width, 1);
+            Rectangle bottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
+            Rectangle rightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);
+            Rectangle leftLine = new Rectangle(collisionBox.X, collisionBox.Y, 1, collisionBox.Height);
+
+            spriteBatch.Draw(collisionTexture, topLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(collisionTexture, bottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(collisionTexture, rightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(collisionTexture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
     }
 }

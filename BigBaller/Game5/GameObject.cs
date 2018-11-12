@@ -14,21 +14,22 @@ namespace Game5
     {
         
         protected Texture2D sprite;
-        protected Vector2 position;
         public float speed = 3f;
-        public Vector2 Position;
+        protected Vector2 position;
+        public Vector2 Position { get => position; }
 
         protected ContentManager content;
 
-        /*
+
         public virtual Rectangle CollisionBox
         {
-            
             get
             {
-                
+                return new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
             }
         }
+
+        /*
 
         public bool IsColliding(GameObject otherObject)
         { 
@@ -46,36 +47,19 @@ namespace Game5
 
         public GameObject(Vector2 _position, ContentManager content, string spriteName)
         {
-            Position = _position;
+            this.content = content;
+            position = _position;
             sprite = content.Load<Texture2D>(spriteName);
         }
 
-        public virtual void Update()
+        public virtual void Update(GameTime gameTime)
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                position.X -= speed;
-            }
 
-            if(Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                position.X += speed;
-            }
-
-            if(Keyboard.GetState().IsKeyDown(Keys.W))
-            {
-                position.Y -= speed;
-            }
-
-            if(Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                position.Y += speed;
-            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, Color.White);
+            spriteBatch.Draw(sprite, position, null, Color.White);
         }
         
 
