@@ -12,7 +12,7 @@ namespace Game5
     
     public class GameObject
     {
-        
+        public Rectangle rectangle;
         protected Texture2D sprite;
         public float speed = 3f;
         protected Vector2 position;
@@ -42,8 +42,6 @@ namespace Game5
         }
 
     */
-
-
 
         public GameObject(Vector2 _position, ContentManager content, string spriteName)
         {

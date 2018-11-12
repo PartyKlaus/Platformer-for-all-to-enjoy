@@ -16,7 +16,7 @@ namespace Game5
         private string name;
         private float moveSpeed = 100;
         private double shootRate = 0;
-        private int health;
+        protected int health;
 
         public Character( Vector2 _position, ContentManager content, string spriteName, int _health, float _moveSpeed, double _shootRate) : base(0, 0, _position,content, spriteName)
         {

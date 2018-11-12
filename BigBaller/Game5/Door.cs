@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Game5
 {
+    /*
     public class Door : GameObject
 
     {
@@ -12,5 +13,5 @@ namespace Game5
         {
             throw new System.NotImplementedException();
         }
-    }
+    }*/
 }

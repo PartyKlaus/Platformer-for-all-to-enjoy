@@ -122,6 +122,9 @@ namespace Game5
             }
 
             spriteBatch.End();
+
+        
+        
             base.Draw(gameTime);
         }
 

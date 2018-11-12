@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Game5
 {
+    /*
     public class PickUpItem : GameObject
     {
         public PickUpItem()
@@ -16,5 +17,5 @@ namespace Game5
         {
             throw new System.NotImplementedException();
         }
-    }
+    }*/
 }

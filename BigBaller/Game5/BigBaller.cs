@@ -13,44 +13,54 @@ namespace Game5
     public class BigBaller : Character
     {
 
-        private float jump = 50;
+        public Vector2 velocity;
+        public bool hasJumped;
 
-       /* public BigBaller()
-        {
-
-        }
-        */
-        
-
-        public BigBaller(ContentManager content) : base(new Vector2(50,100), content, "Characters/cat_idle", 10,40,2)
+        public BigBaller(ContentManager content) : base(new Vector2(50,100), content, "Characters/BigBaller", 10,40,2)
         {
             this.content = content;
         }
 
-         public override void Update(GameTime gameTime)
+        
+
+
+        public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            rectangle = new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
+
+            position += velocity;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Right)) velocity.X = speed;
+            else if (Keyboard.GetState().IsKeyDown(Keys.Left)) velocity.X = -speed; else velocity.X = 0f;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) && hasJumped == false)
             {
-                position.X -= speed;
+                position.Y -= 10f;
+                velocity.Y = -5f;
+                hasJumped = true;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (hasJumped == true)
             {
-                position.X += speed;
+                float i = 1;
+                velocity.Y += 0.15f * i;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
-            {
-                position.Y -= speed;
-            }
+            if (position.Y + sprite.Height >= 450)
+                hasJumped = false;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                position.Y += speed;
-            }
+            if (hasJumped == false)
+                velocity.Y = 0f;
 
-            base.Update(gameTime);
         }
+
+
+        public void Draw(SpriteBatch SpriteBatch)
+        {
+            if(health > 0)
+                SpriteBatch.Draw(sprite, position, Color.White);
+        }
+        
 
         
     }
