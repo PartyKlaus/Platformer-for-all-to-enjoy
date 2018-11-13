@@ -10,55 +10,93 @@ using System.Text;
 namespace Game5
 {
     
-    public class BigBaller : Character
+    class BigBaller : Character
     {
-
+        private Texture2D bigBallertexture;
+        private Vector2 position = new Vector2(0, 384);
         public Vector2 velocity;
-        public bool hasJumped;
+        private Rectangle rectangle;
 
-        public BigBaller(ContentManager content) : base(new Vector2(50,100), content, "Characters/BigBaller", 10,40,2)
+        private bool hasJumped = false;
+
+        public Vector2 Position
+        {
+            get { return position; }
+        }
+
+        public BigBaller(ContentManager content) : base(new Vector2(0, 200), content, "Characters/BigBaller", 3, 10, 10)
         {
             this.content = content;
         }
 
-        
-
-
-        public override void Update(GameTime gameTime)
+        public void Load(ContentManager Content)
         {
-            rectangle = new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
-
-            position += velocity;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Right)) velocity.X = speed;
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left)) velocity.X = -speed; else velocity.X = 0f;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Up) && hasJumped == false)
-            {
-                position.Y -= 10f;
-                velocity.Y = -5f;
-                hasJumped = true;
-            }
-
-            if (hasJumped == true)
-            {
-                float i = 1;
-                velocity.Y += 0.15f * i;
-            }
-
-            if (position.Y + sprite.Height >= 450)
-                hasJumped = false;
-
-            if (hasJumped == false)
-                velocity.Y = 0f;
-
+            bigBallertexture = Content.Load<Texture2D>("Characters/BigBaller");
         }
 
 
-        public void Draw(SpriteBatch SpriteBatch)
+
+        public void Update(GameTime gameTime)
         {
-            if(health > 0)
-                SpriteBatch.Draw(sprite, position, Color.White);
+            position += velocity;
+            rectangle = new Rectangle((int)position.X, (int)position.Y, bigBallertexture.Width, bigBallertexture.Height);
+
+            Input(gameTime);
+
+            if (velocity.Y < 10)
+                velocity.Y += 0.4f;
+
+        }
+
+        private void Input(GameTime gameTime)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+                velocity.X = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 3;
+            else if (Keyboard.GetState().IsKeyDown(Keys.A))
+                velocity.X = -(float)gameTime.ElapsedGameTime.TotalMilliseconds / 3;
+            else velocity.X = 0f;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.W) && hasJumped==false)
+            {
+                position.Y -= 5f;
+                velocity.Y = -10f;
+                hasJumped = true;
+            }
+
+        }
+
+        public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
+        {
+            if (rectangle.TouchTopOf(newRectangle))
+            {
+                rectangle.Y = newRectangle.Y - rectangle.Height;
+                velocity.Y = 0f;
+                hasJumped = false;
+            }
+
+            if (rectangle.TouchLeftOf(newRectangle))
+            {
+                position.X = newRectangle.X - rectangle.Width - 2;
+            }
+
+            if (rectangle.TouchRightOf(newRectangle))
+            {
+                position.X = newRectangle.X + newRectangle.Width + 2;
+            }
+
+            if (rectangle.TouchBottomOf(newRectangle))
+                velocity.Y = 1f;
+
+            if (position.X < 0) position.X = 0;
+            if (position.X > xOffset - rectangle.Width) position.X = xOffset - rectangle.Width;
+            if (position.Y < 0) velocity.Y = 1f;
+            if (position.Y > yOffset - rectangle.Height) position.Y = yOffset - rectangle.Height;
+            
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        { 
+                spriteBatch.Draw(bigBallertexture, rectangle, Color.White);
         }
         
 
