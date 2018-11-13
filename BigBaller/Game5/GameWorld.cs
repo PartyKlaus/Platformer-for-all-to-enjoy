@@ -23,21 +23,25 @@ namespace Game5
 
         private Texture2D collisionTexture;
 
-        private BigBaller bigBaller;
+        //private Platform platform;
 
         private List<GameObject> gameObjects = new List<GameObject>();
         private static List<GameObject> Add = new List<GameObject>();
-        private static List<GameObject> Remove = new List<GameObject>();
-        
-
+        private static List<GameObject> Remove = new List<GameObject>();        
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        
+        Map map;
+        private BigBaller bigBaller;
+
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
+
+            graphics.PreferredBackBufferHeight = 1200;
+            graphics.PreferredBackBufferWidth = 2000;
+
             Content.RootDirectory = "Content";
         }
 
@@ -49,8 +53,8 @@ namespace Game5
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            map = new Map();
+            bigBaller = new BigBaller(Content);
             base.Initialize();
         }
 
@@ -63,15 +67,36 @@ namespace Game5
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            Tile.Content = Content;
+            map.Generate(new int[,]{
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0},
+                {1,1,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0},
+                {2,2,2,2,2,0,0,0,0,2,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,2,2,1,1,0,0,0,0,2,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,1,0,0,0,0,1,1,1,1,1,1,2,2,2,0,0,0,0,0,0,0,0,0},
+                {1,0,0,0,2,1,1,1,0,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0},
+                {2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0},
+                {0,0,0,1,1,1,1,1,1,0,0,1,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0},
+                {0,0,1,2,2,2,2,2,2,0,0,2,1,0,0,0,0,2,0,0,0,0,0,0,0,0,0},
+                {0,1,2,2,2,2,2,2,2,10,10,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                {1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0},
+                {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1},
+
+            },64);
+            bigBaller.Load(Content);
+
             collisionTexture = Content.Load<Texture2D>("CollisionTexture/CollisionTexture");
-
+            
             backGround = Content.Load<Texture2D>("Background\\NighBg");
-
             mainFrame = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-
-           
-            bigBaller = new BigBaller(Content);
-            gameObjects.Add(bigBaller);
+         
 
         }
 
@@ -94,11 +119,15 @@ namespace Game5
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            bigBaller.Update(gameTime);
+            foreach (CollisionTiles tile in map.CollisionTiles)
+                bigBaller.Collision(tile.Rectangle, map.Width, map.Height);
+            /*
             foreach (GameObject go in gameObjects)
             {
                 go.Update(gameTime);
             }
-
+            */
             base.Update(gameTime);
         }
 
@@ -111,8 +140,9 @@ namespace Game5
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             spriteBatch.Draw(backGround, mainFrame, Color.White);
-
-
+            map.Draw(spriteBatch);
+            bigBaller.Draw(spriteBatch);
+            /*
             foreach (GameObject go in gameObjects)
             {
                 go.Draw(spriteBatch);
@@ -120,7 +150,7 @@ namespace Game5
                 DrawCollisionBox(go);
 #endif
             }
-
+            */
             spriteBatch.End();
 
         
