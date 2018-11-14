@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -9,42 +10,51 @@ using System.Text;
 
 namespace Game5
 {
-    
+
     class BigBaller : Character
     {
-        private Texture2D bigBallertexture;
-        private Vector2 position = new Vector2(0, 384);
-        public Vector2 velocity;
-        private Rectangle rectangle;
 
-        private bool hasJumped = false;
 
-        public Vector2 Position
+
+        
+
+        private int spriteWidth = 125;
+        private int spriteHeight = 120;
+        private float fps = 20;
+
+
+
+        
+
+
+        public BigBaller(ContentManager content) : base(new Vector2(0, 100), content, "Characters/Animations/spritesheet", 3, 1, 10)
         {
-            get { return position; }
-        }
 
-        public BigBaller(ContentManager content) : base(new Vector2(0, 200), content, "Characters/BigBaller", 3, 10, 10)
-        {
             this.content = content;
-        }
-
-        public void Load(ContentManager Content)
-        {
-            bigBallertexture = Content.Load<Texture2D>("Characters/BigBaller");
+            AddAnimation(4, fps, 0, 0, "Idle", spriteWidth, spriteHeight);
+            PlayAnimation("Idle");
         }
 
 
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             position += velocity;
-            rectangle = new Rectangle((int)position.X, (int)position.Y, bigBallertexture.Width, bigBallertexture.Height);
+            rectangle = CollisionBox;
+
+
 
             Input(gameTime);
 
             if (velocity.Y < 10)
                 velocity.Y += 0.4f;
+
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            position += (velocity * deltaTime);
+            
 
         }
 
@@ -56,7 +66,7 @@ namespace Game5
                 velocity.X = -(float)gameTime.ElapsedGameTime.TotalMilliseconds / 3;
             else velocity.X = 0f;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W) && hasJumped==false)
+            if (Keyboard.GetState().IsKeyDown(Keys.W) && hasJumped == false)
             {
                 position.Y -= 5f;
                 velocity.Y = -10f;
@@ -64,10 +74,12 @@ namespace Game5
             }
 
         }
-
+        
+        //Kunne flyttes over i GameObject så den gælder for alle objekter
+        /*
         public void Collision(Rectangle newRectangle, int xOffset, int yOffset)
         {
-            if (rectangle.TouchTopOf(newRectangle))
+            if ( rectangle.TouchTopOf(newRectangle))
             {
                 rectangle.Y = newRectangle.Y - rectangle.Height;
                 velocity.Y = 0f;
@@ -91,16 +103,19 @@ namespace Game5
             if (position.X > xOffset - rectangle.Width) position.X = xOffset - rectangle.Width;
             if (position.Y < 0) velocity.Y = 1f;
             if (position.Y > yOffset - rectangle.Height) position.Y = yOffset - rectangle.Height;
-            
-        }
 
-        public void Draw(SpriteBatch spriteBatch)
-        { 
-                spriteBatch.Draw(bigBallertexture, rectangle, Color.White);
         }
+        */
         
 
-        
+        /*
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(sprite, rectangle, Color.White);
+        }
+        */
+
+
     }
-    
+
 }

@@ -14,11 +14,22 @@ namespace Game5
 
         
         private string name;
-        private float moveSpeed = 100;
+        protected float moveSpeed = 1;
         private double shootRate = 0;
         protected int health;
 
-        public Character( Vector2 _position, ContentManager content, string spriteName, int _health, float _moveSpeed, double _shootRate) : base(0, 0, _position,content, spriteName)
+        /// <summary>
+        /// Character constructor
+        /// </summary>
+        /// <param name="_position">sprite's position in gameworld</param>
+        /// <param name="content">content</param>
+        /// <param name="spriteName">Name of sprite file/filepath</param>
+        /// <param name="frames">Number of frames in spritesheet</param>
+        /// <param name="_animatedFPS">Animation speed</param>
+        /// <param name="_health">Sprite's health</param>
+        /// <param name="_moveSpeed">Sprite's speed</param>
+        /// <param name="_shootRate">Sprite's shootrate</param>
+        public Character(Vector2 _position, ContentManager content, string spriteName, int _health, float _moveSpeed, double _shootRate) : base(_position,content, spriteName)
         {
             health = _health;
             moveSpeed = _moveSpeed;
@@ -42,11 +53,12 @@ namespace Game5
         {
             throw new System.NotImplementedException();
         }
-
-        public override void Draw(SpriteBatch spriteBatch)
+        /*
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, position, null, Color.White);
         }
+        */
 
     }
     

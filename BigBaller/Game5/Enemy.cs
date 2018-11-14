@@ -24,7 +24,7 @@ namespace Game5
 
         public Enemy(ContentManager content, Vector2 _position, float newDistance) : base(new Vector2(), content, "Characters/Slime", 3, 10, 10)
         {
-            this.content = content; 
+            this.content = content;
             distance = newDistance;
             oldDistance = distance;
         }
@@ -44,7 +44,7 @@ namespace Game5
             else if (distance >= oldDistance)
             {
                 right = false;
-                velocity.X = -1; 
+                velocity.X = -1;
             }
 
             if (right) distance += 1; else distance -= 1;
@@ -52,7 +52,7 @@ namespace Game5
             MouseState mouse = Mouse.GetState();
             mouseDistance = mouse.X - position.X;
 
-            if(mouseDistance <= -200 && mouseDistance <= 200)
+            if (mouseDistance <= -200 && mouseDistance <= 200)
             {
                 if (mouseDistance < -1)
                     velocity.X = -1f;
@@ -79,5 +79,5 @@ namespace Game5
 
 
     }
-    
+
 }
