@@ -32,9 +32,12 @@ namespace Game5
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        
         Map map;
-        private BigBaller bigBaller;
         Camera camera;
+
+        private BigBaller bigBaller;
+        Enemy enemy;
 
         public GameWorld()
         {
@@ -70,6 +73,10 @@ namespace Game5
 
             Tile.Content = Content;
             camera = new Camera(GraphicsDevice.Viewport);
+            IsMouseVisible = true;
+
+
+
             map.Generate(new int[,]{
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -100,7 +107,13 @@ namespace Game5
                 {8,8,8,8,8,2,2,2,8,8,8,8,8,2,2,2,8,8,8,8,8,8,8,8,2,2,2,8,8,8,8,8,8,8,8,2,2,2,8,8,8,8,8,2,8,8,8,8,8,2,8,8,8,8,8,8,2,2,8,8,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,0,0,0,1,1,0,0,0,1,1,1},
                 {8,8,8,8,8,2,2,2,8,8,8,8,8,2,2,2,8,8,8,8,8,8,8,8,2,2,2,8,8,8,8,8,8,8,8,2,2,2,8,8,8,8,8,2,8,8,8,8,8,2,8,8,8,8,8,8,2,2,8,8,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,7,7,7,2,2,7,7,7,2,2,2},
             },64);
-            bigBaller.Load(Content);
+
+            enemy = new Enemy(Content, new Vector2(0,900), 150);
+            gameObjects.Add(enemy);
+
+            bigBaller = new BigBaller(Content);
+            gameObjects.Add(bigBaller);
+
 
             collisionTexture = Content.Load<Texture2D>("CollisionTexture/CollisionTexture");
             
@@ -129,12 +142,16 @@ namespace Game5
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            bigBaller.Update(gameTime);
-            foreach (CollisionTiles tile in map.CollisionTiles)
+            foreach (GameObject go in gameObjects)
             {
-                bigBaller.Collision(tile.Rectangle, map.Width, map.Height);
-                camera.Update(bigBaller.Position, map.Width, map.Height);
+                go.Update(gameTime);
+                foreach (CollisionTiles tile in map.CollisionTiles)
+                {
+                    bigBaller.Collision(tile.Rectangle, map.Width, map.Height);
+                    camera.Update(bigBaller.Position, map.Width, map.Height);
+                }
             }
+           
             base.Update(gameTime);
         }
 
@@ -148,10 +165,15 @@ namespace Game5
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null , null , null, camera.Transform);
             spriteBatch.Draw(backGround, mainFrame, Color.White);
-            map.Draw(spriteBatch);
-            bigBaller.Draw(spriteBatch);
+            foreach (GameObject go in gameObjects)
+            {
+                go.Draw(spriteBatch);
+#if DEBUG
+                DrawCollisionBox(go);
+#endif
+                spriteBatch.End();
+            }
             spriteBatch.End();
-
             base.Draw(gameTime);
         }
 
