@@ -11,25 +11,39 @@ using System.Threading;
 
 namespace Game5
 {
-    public class ScreenManager : BigBaller
+    public class Camera
     {
-        public Matrix transform;
-        Viewport view;
-        Vector2 centre;
-        BigBaller bigBaller;
-
-        public ScreenManager(Viewport newView, ContentManager content) : base(content)
+        private Matrix transform;
+        public Matrix Transform
         {
-            view = newView;
+            get { return transform; }
+        }
+
+        private Viewport viewport;
+        private Vector2 centre;
+
+        public Camera(Viewport newViewport)
+        {
+            viewport = newViewport;
         }
 
 
-
-        public void Update(GameTime gameTime, GameWorld bigBaller)
+        public void Update(Vector2 position, int xOffset, int yOffset)
         {
-            centre = new Vector2(base.position.X + (base.rectangle.Width / 2) - 400, 0);
-            transform = Matrix.CreateScale(new Vector3(1, 1, 0)) *
-                Matrix.CreateTranslation(new Vector3(-centre.X, -centre.Y, 0));
+            if (position.X < viewport.Width / 2)
+                centre.X = viewport.Width / 2;
+            else if (position.X > xOffset - (viewport.Width / 2))
+                centre.X = xOffset - (viewport.Width / 2);
+            else centre.X = position.X;
+
+            if (position.Y < viewport.Height / 2)
+                centre.Y = viewport.Height / 2;
+            else if (position.Y > yOffset - (viewport.Height / 2))
+                centre.Y = yOffset - (viewport.Height / 2);
+            else centre.Y = position.Y;
+
+            transform =  Matrix.CreateTranslation(new Vector3(-centre.X + (viewport.Width / 2),
+                                                     -centre.Y + (viewport.Height / 2), 0));
         }
     }
 }
